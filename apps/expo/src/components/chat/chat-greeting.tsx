@@ -52,7 +52,7 @@ export function ChatGreeting({
           </Text>
         </Animated.View>
 
-        <View className="min-h-[200px] w-full">
+        <View className="min-h-[120px] w-full">
           <SuggestionList
             suggestions={suggestions}
             onPress={handleSuggestedQuestion}

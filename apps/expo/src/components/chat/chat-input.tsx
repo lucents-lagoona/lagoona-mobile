@@ -6,7 +6,7 @@ import {
   TextInput,
   View,
 } from "react-native";
-import { BlurView } from "expo-blur";
+import * as Haptics from "expo-haptics";
 import { PaperPlaneRightIcon } from "phosphor-react-native";
 
 import { cn } from "@/lib/utils";
@@ -33,6 +33,11 @@ export const ChatInput: React.FC<ChatInputProps> = ({
     inputRef.current?.focus();
   };
 
+  const handleSend = () => {
+    void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    onSubmit();
+  };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -42,37 +47,31 @@ export const ChatInput: React.FC<ChatInputProps> = ({
         <View className="flex-row items-center gap-3">
           {/* Input Container */}
           <Pressable onPress={handleContainerPress} className="flex-1">
-            <BlurView
-              intensity={40}
-              tint="light"
-              className="border-primary-gold-200 overflow-hidden rounded-full border"
-            >
-              <View className="flex-row items-center p-2">
-                {/* Text Input Container */}
-                <TextInput
-                  ref={inputRef}
-                  multiline
-                  numberOfLines={1}
-                  value={value}
-                  onChangeText={onChangeText}
-                  placeholder={placeholder}
-                  maxLength={1000}
-                  className="flex-1 px-4 py-3 text-base"
-                  style={{
-                    fontSize: 16,
-                    lineHeight: 20,
-                    maxHeight: 100,
-                    minHeight: 40,
-                  }}
-                />
-              </View>
-            </BlurView>
+            <View className="border-primary-gold-200 flex-row items-center overflow-hidden rounded-full border">
+              {/* Text Input Container */}
+              <TextInput
+                ref={inputRef}
+                multiline
+                numberOfLines={2}
+                value={value}
+                onChangeText={onChangeText}
+                placeholder={placeholder}
+                maxLength={1000}
+                className="flex-1 px-4 py-3 text-base"
+                style={{
+                  fontSize: 16,
+                  lineHeight: 20,
+                  maxHeight: 100,
+                  minHeight: 40,
+                }}
+              />
+            </View>
           </Pressable>
 
           <View>
             {/* Send Button */}
             <Pressable
-              onPress={onSubmit}
+              onPress={handleSend}
               disabled={!canSend}
               className={cn(
                 "h-14 w-14 items-center justify-center overflow-hidden rounded-full",

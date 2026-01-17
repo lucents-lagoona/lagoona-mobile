@@ -92,10 +92,9 @@ export function DisclaimerDialog({
           <Button
             onPress={handleConfirm}
             disabled={!isChecked || isConfirming}
-            className={`w-full ${!isChecked || isConfirming ? "opacity-50" : ""}`}
             size="lg"
           >
-            <Text className="font-bold text-white">
+            <Text className="font-medium">
               {isConfirming ? "Đang xác nhận..." : "Tôi hiểu rồi"}
             </Text>
           </Button>
