@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import { Image } from "expo-image";
 
-import type { GalleryImage } from "./types";
-import { ImageViewerModal } from "./image-viewer";
+import { ImageViewerModal } from "@/components/image-viewer";
+
+export interface GalleryImage {
+  url: string;
+  description: string;
+}
 
 interface ImageGalleryProps {
   images: GalleryImage[];

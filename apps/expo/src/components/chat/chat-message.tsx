@@ -2,7 +2,7 @@ import type { UIMessage } from "ai";
 import React, { useMemo } from "react";
 import { View } from "react-native";
 
-import type { GalleryImage } from "@/components/chat/types";
+import type { GalleryImage } from "@/components/image-viewer";
 import { ImageGallery } from "@/components/chat/image-gallery";
 import { MarkdownRenderer } from "@/components/chat/markdown-renderer";
 import { Text } from "@/components/ui/text";

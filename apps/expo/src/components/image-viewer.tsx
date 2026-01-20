@@ -1,14 +1,17 @@
-import type { ImageSource } from "expo-image";
+import type { ImageSourcePropType } from "react-native";
 import React from "react";
 import { Modal, SafeAreaView, TouchableOpacity, View } from "react-native";
 import ImageViewer from "react-native-image-zoom-viewer";
 import { XIcon } from "phosphor-react-native";
 
-import type { GalleryImage } from "@/components/image-viewer";
+export interface GalleryImage {
+  url: string;
+  description: string;
+}
 
 export interface ViewerImage {
   url?: string;
-  source?: ImageSource;
+  source?: ImageSourcePropType;
 }
 
 interface ImageViewerProps {

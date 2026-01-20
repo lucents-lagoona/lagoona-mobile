@@ -1,5 +1,6 @@
 import React from "react";
 import { Pressable, View } from "react-native";
+import * as Haptics from "expo-haptics";
 import { ArrowLeftIcon, PlusIcon } from "phosphor-react-native";
 
 import { Text } from "@/components/ui/text";
@@ -25,8 +26,8 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
         <View className="flex-1 flex-row items-center gap-4">
           {/* Back Button */}
           <Pressable onPress={onBack}>
-            <View className="bg-primary-gold-50 rounded-full p-2.5">
-              <ArrowLeftIcon size={18} weight="bold" color="#a08047" />
+            <View className="rounded-full p-2.5">
+              <ArrowLeftIcon size={24} weight="bold" color="#a08047" />
             </View>
           </Pressable>
 
@@ -45,14 +46,17 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
 
         {/* Reset Button */}
         <Pressable
-          onPress={onReset}
+          onPress={() => {
+            void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+            onReset?.();
+          }}
           disabled={!onReset}
           style={({ pressed }) => ({
             opacity: !onReset ? 0.3 : pressed ? 0.7 : 1,
           })}
         >
-          <View className="bg-primary-gold-50 rounded-full p-2.5">
-            <PlusIcon size={18} weight="bold" color="#a08047" />
+          <View className="rounded-full p-2.5">
+            <PlusIcon size={24} weight="bold" color="#a08047" />
           </View>
         </Pressable>
       </View>

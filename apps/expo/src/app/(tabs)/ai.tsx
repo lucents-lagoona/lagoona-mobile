@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { ScrollView, View } from "react-native";
+import { Keyboard, ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router, useLocalSearchParams } from "expo-router";
 
@@ -10,7 +10,6 @@ import { ChatMessage } from "@/components/chat/chat-message";
 import { DisclaimerDialog } from "@/components/chat/disclaimer-dialog";
 import { SuggestionList } from "@/components/chat/suggestion-list";
 import { ThinkingMessage } from "@/components/chat/thinking-message";
-import { Text } from "@/components/ui/text";
 import { useChatManager } from "@/hooks/use-chat-manager";
 import { useConversation } from "@/hooks/use-conversation";
 import { useDisclaimer } from "@/hooks/use-disclaimer";
@@ -46,6 +45,13 @@ export default function ChatScreen() {
     }
     setIsDisclaimerReady(false);
   }, [suggestions]);
+
+  // Dismiss keyboard when disclaimer shows
+  useEffect(() => {
+    if (showDisclaimer) {
+      Keyboard.dismiss();
+    }
+  }, [showDisclaimer]);
 
   const {
     messages,
@@ -95,10 +101,11 @@ export default function ChatScreen() {
   const canInteract = isDisclaimerConfirmed && !isLoading;
 
   return (
-    <View className="flex-1 bg-background">
+    <View className="flex-1">
       <SafeAreaView
         className="flex-1"
         edges={["left", "right", "top", "bottom"]}
+        style={{ backgroundColor: "#f8f6ee" }}
       >
         {/* Chat Header */}
         <ChatHeader
@@ -142,10 +149,7 @@ export default function ChatScreen() {
 
         {/* Pinned Follow-up Suggestions */}
         {showFollowUpSuggestions && (
-          <View className="px-4 pb-2">
-            <Text className="my-2 px-1 text-sm font-medium text-gray-500">
-              Suggested for you
-            </Text>
+          <View className="px-4 pt-2">
             <SuggestionList
               suggestions={followUpSuggestions}
               onPress={canInteract ? handleSuggestedQuestion : () => null}
